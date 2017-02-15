@@ -11,10 +11,12 @@
                     </h5>
                 </div>
                 <div class="ibox-content">
+                    {% if computer_selected %}
                     {% if computer_selected is None %}
                         <form action="{% url 'detail_new' %}" method="post" class="form-horizontal">
                     {% else %}
                         <form action="{% url 'detail' computer_id=computer_selected.id %}" method="post" class="form-horizontal">
+                    {% endif %}
                     {% endif %}
                     {% csrf_token %}
                     <div class="form-group"><label class="col-lg-2 control-label">Computer ID</label>
