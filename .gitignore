@@ -1,0 +1,11 @@
+*/settings_secret.py
+*.pyc
+.DS_Store
+*.sqlite3
+**/bower_components
+**/node_modules
+*.log
+*.log.*
+.idea/
+*.swp
+venv/
