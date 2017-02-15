@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content_block %}
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>{{ ibox_head }}&nbsp;
+                        <small>Fill in computer details.</small>
+                    </h5>
+                </div>
+                <div class="ibox-content">
+                    {% if computer_selected is None %}
+                        <form action="{% url 'detail_new' %}" method="post" class="form-horizontal">
+                    {% else %}
+                        <form action="{% url 'detail' computer_id=computer_selected.id %}" method="post" class="form-horizontal">
+                    {% endif %}
+                    {% csrf_token %}
+                    <div class="form-group"><label class="col-lg-2 control-label">Computer ID</label>
+
+                        <div class="col-lg-10"><input type="text" value="{{ computer_selected.id }} " disabled=""
+                                                      placeholder="Computer ID Here"
+                                                      class="form-control"></div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+
+                    <span class="label label-danger">{{ form.title.errors.as_text }}</span>
+
+                    <div class="form-group"><label for="id_title" class="col-sm-2 control-label">Computer
+                        Name</label>
+
+                        <div class="col-sm-10"><input type="text" value="{{ computer_selected.title }}" id="id_title"
+                                                      name="title" class="form-control">
+                        </div>
+
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <span class="label label-danger">{{ form.type.errors.as_text }}</span>
+
+                    <div class="form-group"><label for="id_type" class="col-sm-2 control-label">Computer
+                        Type</label>
+                        <div class="col-sm-10"><input id="id_type" value="{{ computer_selected.type }}" name="type"
+                                                      type="text" class="form-control">
+
+                            <span
+                                    class="help-block m-b-none">Example Type</span>
+                        </div>
+
+                    </div>
+
+                    <div class="hr-line-dashed"></div>
+                    <span class="label label-danger">{{ form.win_version.errors.as_text }}</span>
+
+                    <div class="form-group"><label for="id_win_version" class="col-sm-2 control-label">Windows
+                        Version</label>
+                        <div class="col-sm-10"><input id="id_win_version" value="{{ computer_selected.win_version }}"
+                                                      name="win_version" type="text"
+                                                      class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <span class="label label-danger">{{ form.win_product_key.errors.as_text }}</span>
+
+                    <div class="form-group"><label for="id_win_product_key" class="col-sm-2 control-label">Windows
+                        Product Key</label>
+                        <div class="col-sm-10"><input id="id_win_product_key"
+                                                      value="{{ computer_selected.win_product_key }}"
+                                                      name="win_product_key" type="text"
+                                                      class="form-control">
+                        </div>
+
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <span class="label label-danger">{{ form.frozen.errors.as_text }}</span>
+
+                    <div class="form-group"><label for="id_frozen" class="col-sm-2 control-label">Frozen? </label>
+                        <div class="col-sm-10"><input id="id_frozen" checked="{{ computer_selected.frozen }} "
+                                                      name="frozen" type="checkbox">
+                        </div>
+
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <span class="label label-danger">{{ form.df_version.errors.as_text }}</span>
+
+                    <div class="form-group"><label for="id_df_version" class="col-sm-2 control-label">Deep
+                        Freeze</label>
+                        <div class="col-sm-10"><input id="id_df_version" value="{{ computer_selected.df_version }}"
+                                                      name="df_version" type="text"
+                                                      class="form-control">
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="col-sm-1 col-sm-offset-10 btn btn-primary">Submit</button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% load static %}
+<nav class="navbar-default navbar-static-side" role="navigation" style="overflow-y:scroll;height:100%">
+
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li>
+                    <a href="{% url 'index' %}"><img href="{% url 'index' %}" src="{% static 'img/logo.png' %}" style="width:103%;"></a>
+            </li>
+            <li>
+                <form action="" method="get">
+                    <br>
+                    <div class="input-group"><input type="text" id="search" name="search" placeholder="Search"
+                                                    class="input-sm form-control"> <span
+                            class="input-group-btn">
+                                        <button type="submit" class="btn btn-sm btn-primary"> Go!</button> </span>
+                    </div>
+
+                </form>
+            </li>
+            {% for computer in computers %}
+                <li>
+                      <a href="#"><i class="fa fa-sitemap"></i> <span
+                            class="nav-label">{{ computer.id }}: {{ computer.title }} </span><span
+                            class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+                        <li>
+                            <a href="#">Item Class Foo<span class="fa arrow"></span></a>
+                            <ul class="nav nav-third-level">
+                                <li>
+                                    <a href="#"></a>
+                                </li>
+                                <li>
+                                    <a href="#">Property Bar</a>
+                                </li>
+                                <li>
+                                    <a href="#">Property Baz</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        <li><a href="{% url 'detail' computer.id %}">Edit</a></li>
+                    </ul>
+                </li>
+            {% endfor %}
+
+        </ul>
+
+    </div>
+</nav>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CMDB</title>
+</head>
+<body>
+Welcome to cmdb!
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Type</th>
+        <th>Win Version</th>
+        <th>Win Product Key</th>
+        <th>Frozen</th>
+        <th>DF Version</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for computer in computers %}
+        <tr>
+            <td>{{ computer.title }}</td>
+            <td>{{ computer.type }}</td>
+            <td>{{ computer.win_version }}</td>
+            <td>{{ computer.win_product_key }}</td>
+            <td>{{ computer.frozen }}</td>
+            <td>{{ computer.df_version }}</td>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+</table>
+<a href="{% url 'detail' %}">Add a new Computer</a>
+</body>
+</html>
