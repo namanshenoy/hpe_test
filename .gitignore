@@ -9,3 +9,7 @@
 .idea/
 *.swp
 venv/
+perform-csv/
+inspinia_templates
+demo
+

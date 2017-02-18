@@ -6,39 +6,15 @@ from django.db import models
 # Create your models here.
 
 
-class Company(models.Model):
-    user = models.ManyToManyField(User)
-    company_name = models.CharField(max_length=128, blank=True, null=True)
-
-    def __str__(self):
-        return self.company
-
-
-class Server(models.Model):
-    company = models.ForeignKey('Company', on_delete=models.CASCADE)
-    serialNumberInserv = models.CharField(max_length=128, blank=True, null=True)
-    system_companyName = models.CharField(max_length=128, blank=True, null=True)
-    system_model = models.CharField(max_length=128, blank=True, null=True)
-    updated = models.CharField(max_length=128, blank=True, null=True)
-    system_installDate = models.CharField(max_length=128, blank=True, null=True)
-    capacity_total_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
-    capacity_total_freePct = models.CharField(max_length=128, blank=True, null=True)
-    capacity_byType_fc_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
-    capacity_byType_nl_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
-    capacity_byType_ssd_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
-    capacity_total_dedupeRatio = models.CharField(max_length=128, blank=True, null=True)
-    virtualCapacity_byType_tdvv_vvCount = models.CharField(max_length=128, blank=True, null=True)
-    virtualCapacity_byType_tdvv_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
-
-    def __str__(self):
-        return self.system_companyName + ' ' + self.serialNumberInserv
-
-
 class ServerRecord(models.Model):
-    server = models.ForeignKey('Server', on_delete=models.CASCADE)
     systemId = models.CharField(max_length=128, blank=True, null=True)
+
     fromDate = models.CharField(max_length=128, blank=True, null=True)
+    fromDateTimeField = models.DateField(blank=True, null=True)
+
     toDate = models.CharField(max_length=128, blank=True, null=True)
+    toDateTimeField = models.DateTimeField(blank=True, null=True)
+
     tpdKernelPatch = models.CharField(max_length=128, blank=True, null=True)
     tpdKernelPatchPrevious = models.CharField(max_length=128, blank=True, null=True)
     vvCountHistVlun = models.CharField(max_length=128, blank=True, null=True)
@@ -154,7 +130,45 @@ class ServerRecord(models.Model):
     ddsSizeUsedTiBPrevious = models.CharField(max_length=128, blank=True, null=True)
 
     def __str__(self):
-        return self.systemId
+        return self.systemId + ' ' + self.fromDate
+
+    def __unicode__(self):
+        return self.systemId + ' ' + self.fromDate
+
+
+class Server(models.Model):
+    serialNumberInserv = models.CharField(max_length=128, blank=True, null=True)
+    system_companyName = models.CharField(max_length=128, blank=True, null=True)
+    system_model = models.CharField(max_length=128, blank=True, null=True)
+    updated = models.DateField(max_length=128, blank=True, null=True)
+    system_installDate = models.CharField(max_length=128, blank=True, null=True)
+    capacity_total_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
+    capacity_total_freePct = models.CharField(max_length=128, blank=True, null=True)
+    capacity_byType_fc_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
+    capacity_byType_nl_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
+    capacity_byType_ssd_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
+    capacity_total_dedupeRatio = models.CharField(max_length=128, blank=True, null=True)
+    virtualCapacity_byType_tdvv_vvCount = models.CharField(max_length=128, blank=True, null=True)
+    virtualCapacity_byType_tdvv_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
+    records = models.ManyToManyField(ServerRecord)
+
+    def __str__(self):
+        return self.system_companyName + ' ' + self.serialNumberInserv
+
+    def __unicode__(self):
+        return self.system_companyName + ' ' + self.serialNumberInserv
+
+
+class Company(models.Model):
+    user = models.ManyToManyField(User, blank=True)
+    company_name = models.CharField(max_length=128, blank=True, null=True)
+    servers = models.ManyToManyField(Server)
+
+    def __str__(self):
+        return self.company_name
+
+    def __unicode__(self):
+        return self.company_name
 
 
 class Averages(models.Model):

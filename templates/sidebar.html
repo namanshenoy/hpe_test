@@ -1,5 +1,5 @@
 {% load static %}
-<nav class="navbar-default navbar-static-side" role="navigation" style="overflow-y:scroll;height:100%">
+<nav class="navbar-default navbar-static-side" role="navigation" style="overflow-y: scroll;height: 100%;">
 
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
@@ -18,9 +18,9 @@
                 </form>
             </li>
             {% for computer in computers %}
-                <li>
+                <li id="server-list">
                       <a href="#"><i class="fa fa-sitemap"></i> <span
-                            class="nav-label">{{ computer.id }}: {{ computer.title }} </span><span
+                            class="nav-label">Serial : {{ computer.serialNumberInserv }}</span><span
                             class="fa arrow"></span></a>
                     <ul class="nav nav-second-level collapse">
                         <li>
@@ -38,7 +38,7 @@
 
                             </ul>
                         </li>
-                        <li><a href="{% url 'detail' computer.id %}">Edit</a></li>
+                        <li><a href="   ">Edit</a></li>
                     </ul>
                 </li>
             {% endfor %}

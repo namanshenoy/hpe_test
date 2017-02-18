@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block body_block %}
+    <script type="text/javascript">
+        function forceLower(strInput) {
+            strInput.value = strInput.value.toLowerCase();
+        };
+        ​
+    </script>
+    <div class="ibox float-e-margins">
+        <div class="row">
+
+            <div class="col-md-6 ibox-content">
+                <h2 class="font-bold">Login</h2>
+                <hr>
+                <p>
+                    HPE Container Management Database
+                </p>
+                <p>
+                    &nbsp;-&nbsp;View your company's HPE 3PAR server status.
+                </p>
+                <p>
+                    &nbsp;-&nbsp;Visualize data for each server
+                </p>
+                <p>
+                    Please log in!
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <div class="ibox-content">
+                    <form class="m-t" method="post" action=".">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <p><label for="id_username">Username:</label> <input autofocus=""
+                                                                                 class="form-control"
+                                                                                 id="id_username"
+                                                                                 maxlength="254"
+                                                                                 name="username" type="text"
+                                                                                 style="text-transform: lowercase;"
+                                                                                 required=""></p>
+                        </div>
+                        <div class="form-group">
+                            <p><label for="id_password">Password:</label> <input id="id_password" class="form-control"
+                                                                                 name="password"
+                                                                                 type="password"
+                                                                                 required=""></p>
+                        </div>
+                        <button type="submit" class="btn btn-primary block full-width m-b">Login</button>
+                        <input type="hidden" name="next" value="/">
+
+                        <a href="#">
+                            <small>Forgot password?</small>
+                        </a>
+
+                        <p class="text-muted text-center">
+                            <small>Do not have an account?</small>
+                        </p>
+                        <a class="btn btn-sm btn-white btn-block" href="{% url 'registration_register' %}">Create an
+                            account</a>
+                    </form>
+                    <p class="m-t">
+                    </p>
+                </div>
+            </div>
+        </div>
+        <hr/>
+{% endblock %}
