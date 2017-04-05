@@ -53,6 +53,7 @@ def detail(request, server_serial):
         context['latest_server_record'] = latest_server_record
 
     except Exception, e:
+        print str(e)
         current_company = None
         current_server = None
         return render(request, 'index.html', context)

@@ -7,7 +7,7 @@ from django.db import models
 
 
 class ServerRecord(models.Model):
-    systemId = models.CharField(max_length=128, blank=True, null=True)
+    systemId = models.CharField(max_length=128, blank=False, null=False, default="0")
 
     fromDate = models.CharField(max_length=128, blank=True, null=True)
     fromDateTimeField = models.DateField(blank=True, null=True)
@@ -137,10 +137,10 @@ class ServerRecord(models.Model):
 
 
 class Server(models.Model):
-    serialNumberInserv = models.CharField(max_length=128, blank=True, null=True)
+    serialNumberInserv = models.CharField(max_length=128, primary_key=True, default="0")
     system_companyName = models.CharField(max_length=128, blank=True, null=True)
     system_model = models.CharField(max_length=128, blank=True, null=True)
-    updated = models.DateField(max_length=128, blank=True, null=True)
+    updated = models.CharField(max_length=128, blank=True, null=True)
     system_installDate = models.CharField(max_length=128, blank=True, null=True)
     capacity_total_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
     capacity_total_freePct = models.CharField(max_length=128, blank=True, null=True)
@@ -150,7 +150,9 @@ class Server(models.Model):
     capacity_total_dedupeRatio = models.CharField(max_length=128, blank=True, null=True)
     virtualCapacity_byType_tdvv_vvCount = models.CharField(max_length=128, blank=True, null=True)
     virtualCapacity_byType_tdvv_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
-    records = models.ManyToManyField(ServerRecord)
+
+    class Meta:
+        ordering = ['serialNumberInserv']
 
     def __str__(self):
         return self.system_companyName + ' ' + self.serialNumberInserv

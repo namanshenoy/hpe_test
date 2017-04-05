@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load mathfilters %}
-
 {% block content_block %}
     <script src="{% static 'js/plugins/sparkline/jquery.sparkline.min.js' %}"></script>
     <script>
@@ -21,8 +20,8 @@
                     sliceColors: ['#1ab394', '#F5F5F5']
                 });
 
-                $("#DedupeUsagePie").sparkline([{{ latest_server_record.ddsSizeUsedTiB }},
-                    {{ current_server.capacity_total_sizeTiB }}], {
+                $("#DedupeUsagePie").sparkline([{{ latest_server_record.ddsSizeUsedTiB|add:"0" }},
+                    {{ current_server.capacity_total_sizeTiB|add:"0" }}], {
                     type: 'pie',
                     tooltipFormat: '<span style="color: {{"{{color}"}}}">&#9679;</span> {{"{{offset:offset}"}}} ({{"{{percent.1}"}}}%)',
                     tooltipValueLookups: {
@@ -34,6 +33,21 @@
                     height: '140',
                     sliceColors: ['#1ab394', '#F5F5F5']
                 });
+                var capacitydistribution_values = [{{ current_server.capacity_byType_fc_sizeTiB|add:"0" }}, {{ current_server.capacity_byType_nl_sizeTiB|add:"0" }}, {{  current_server.capacity_byType_ssd_sizeTiB|add:"0" }}]
+                $("#CapacityDistributuionPie").sparkline(capacitydistribution_values,
+                    {
+                        type: 'pie',
+                        tooltipFormat: '<span style="color: {{"{{color}"}}}">&#9679;</span> {{"{{offset:offset}"}}} ({{"{{percent.1}"}}}%)',
+                        tooltipValueLookups: {
+                            'offset': {
+                                0: 'FC Size (TiB)',
+                                1: 'NL Size (TiB)',
+                                2: 'SSD Size (TiB)'
+                            },
+                        },
+                        height: '140',
+                        sliceColors: ['#1ab394', '#F5F5F5', '#E0BAD7']
+                    });
                 var deduplesizeline_values = [{% for record in all_server_records_dedupe_size %}{{ record }}{% if not forloop.last and record != NULL%}, {% endif %}{% endfor %}];
                 $("#DedupeSizeLine").sparkline(deduplesizeline_values,
                     {
@@ -130,8 +144,8 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <h3>Latest DelAcks</h3>
-                    <small>{% if latest_server_record.delAcks %}DelayedACKs: {{ latest_server_record.delAcks }}<br>
-                        Total IO: {{ latest_server_record.totalWriteIOsHistVlun }}{% else %}No data exists{% endif %}
+                    <small>DelayedACKs: {{ latest_server_record.delAcks }}<br>
+                        Total IO: {{ latest_server_record.totalWriteIOsHistVlun }}
                     </small>
                     <hr>
                     <div class="text-center">
@@ -156,6 +170,22 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>Total Storage Distribution</h3>
+                    <small>Dedupe
+                        Size: {{ latest_server_record.ddsSizeUsedTiB }} TiB<br>
+                        Total Size: {{ current_server.capacity_total_sizeTiB }} TiB
+                    </small>
+                    <hr>
+                    <div class="text-center">
+                        <div id="CapacityDistributuionPie"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-12">
@@ -167,5 +197,6 @@
                 </div>
             </div>
         </div>
+    </div>
 
 {% endblock %}
