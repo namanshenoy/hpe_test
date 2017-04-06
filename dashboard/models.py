@@ -156,10 +156,10 @@ class Server(models.Model):
         ordering = ['serialNumberInserv']
 
     def __str__(self):
-        return self.system_companyName + ' ' + self.serialNumberInserv
+        return self.system_companyName + ' ' + str(self.serialNumberInserv)
 
     def __unicode__(self):
-        return self.system_companyName + ' ' + self.serialNumberInserv
+        return self.system_companyName + ' ' + str(self.serialNumberInserv)
 
 
 class Company(models.Model):
