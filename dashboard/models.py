@@ -137,7 +137,7 @@ class ServerRecord(models.Model):
 
 
 class Server(models.Model):
-    serialNumberInserv = models.CharField(max_length=128, primary_key=True, default="0")
+    serialNumberInserv = models.IntegerField(default=0, primary_key=True)
     system_companyName = models.CharField(max_length=128, blank=True, null=True)
     system_model = models.CharField(max_length=128, blank=True, null=True)
     updated = models.DateField(max_length=128, blank=True, null=True)
