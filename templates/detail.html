@@ -7,7 +7,7 @@
         $(document).ready(function () {
 
             var sparklineCharts = function () {
-                $("#AcksPie").sparkline([{{ latest_server_record.delAcks }}, {{ latest_server_record.totalWriteIOsHistVlun}}], {
+                $("#AcksPie").sparkline([{%if latest_server_record.delAcks %}{{ latest_server_record.delAcks }}{%else%}0{%endif%}, {%if latest_server_record.totalWriteIOsHistVlun %}{{ latest_server_record.totalWriteIOsHistVlun}}{%else%}0{%endif%}], {
                     type: 'pie',
                     tooltipFormat: '<span style="color: {{"{{color}"}}}">&#9679;</span> {{"{{offset:offset}"}}} ({{"{{percent.1}"}}}%)',
                     tooltipValueLookups: {
@@ -20,8 +20,8 @@
                     sliceColors: ['#1ab394', '#F5F5F5']
                 });
 
-                $("#DedupeUsagePie").sparkline([{{ latest_server_record.ddsSizeUsedTiB|add:"0" }},
-                    {{ current_server.capacity_total_sizeTiB|add:"0" }}], {
+                $("#DedupeUsagePie").sparkline([{%if latest_server_record.ddsSizeUsedTiB %}{{ latest_server_record.ddsSizeUsedTiB|add:"0" }}{%else%}0{%endif%},
+                    {%if latest_server_record.ddsSizeUsedTiB %}{{ current_server.capacity_total_sizeTiB|add:"0" }}{%else%}0{%endif%}], {
                     type: 'pie',
                     tooltipFormat: '<span style="color: {{"{{color}"}}}">&#9679;</span> {{"{{offset:offset}"}}} ({{"{{percent.1}"}}}%)',
                     tooltipValueLookups: {
@@ -144,8 +144,14 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <h3>Latest DelAcks</h3>
-                    <small>DelayedACKs: {{ latest_server_record.delAcks }}<br>
-                        Total IO: {{ latest_server_record.totalWriteIOsHistVlun }}
+                    <small>
+						{% if latest_server_record.delAcks or  latest_server_record.totalWriteIOsHistVlun %}
+						DelayedACKs: {{ latest_server_record.delAcks|floatformat:2 }}<br>
+                        Total IO: {{ latest_server_record.totalWriteIOsHistVlun|floatformat:2 }}
+						<br /><br />
+						{% else %}
+						No ACK data<br /><br /><br />
+						{% endif %}
                     </small>
                     <hr>
                     <div class="text-center">
@@ -160,8 +166,10 @@
                 <div class="ibox-content">
                     <h3>Dedupe Storage Usage</h3>
                     <small>{% if latest_server_record.ddsSizeUsedTiB and current_server.capacity_total_sizeTiB %}Dedupe
-                        Size: {{ latest_server_record.ddsSizeUsedTiB }} TiB<br>
-                        Total Size: {{ current_server.capacity_total_sizeTiB }} TiB{% else %}No data exists{% endif %}
+                        Size: {{ latest_server_record.ddsSizeUsedTiB|floatformat:2 }} TiB<br>
+                        Total Size: {{ current_server.capacity_total_sizeTiB|floatformat:2 }} TiB
+						<br /><br />
+						{% else %}No Dedupe store<br /><br /><br />{% endif %}
                     </small>
                     <hr>
                     <div class="text-center">
@@ -174,10 +182,15 @@
         <div class="col-lg-3">
             <div class="ibox">
                 <div class="ibox-content">
-                    <h3>Total Storage Distribution</h3>
-                    <small>Dedupe
-                        Size: {{ latest_server_record.ddsSizeUsedTiB }} TiB<br>
-                        Total Size: {{ current_server.capacity_total_sizeTiB }} TiB
+                    <h3>Storage Distribution</h3>
+                    <small>
+						{% if current_server.capacity_byType_fc_sizeTiB or current_server.capacity_byType_nl_sizeTiB or current_server.capacity_byType_fc_sizeTiB %}
+						SSD Size: {%if current_server.capacity_byType_ssd_sizeTiB %}{{ current_server.capacity_byType_ssd_sizeTiB|floatformat:2 }}{% else %}0{%endif%} TiB<br>
+                        NL Size: {%if current_server.capacity_byType_nl_sizeTiB %}{{ current_server.capacity_byType_nl_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB<br />
+						FC Size: {%if current_server.capacity_byType_fc_sizeTiB %}{{ current_server.capacity_byType_fc_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB
+						{% else %}
+						No data exists
+						{% endif %}
                     </small>
                     <hr>
                     <div class="text-center">
