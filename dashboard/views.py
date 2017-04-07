@@ -33,7 +33,7 @@ def detail(request, server_serial):
         current_server = current_company.servers.filter(serialNumberInserv=server_serial).first()
 
         context['current_server'] = current_server
-        server_records = current_server.records.order_by('toDateTimeField')
+        server_records = ServerRecord.objects.filter(systemId=server_serial)
         latest_server_record = server_records.last()
 
         context['all_server_records'] = server_records

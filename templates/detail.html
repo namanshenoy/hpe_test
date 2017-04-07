@@ -33,7 +33,7 @@
                     height: '140',
                     sliceColors: ['#1ab394', '#F5F5F5']
                 });
-                var capacitydistribution_values = [{{ current_server.capacity_byType_fc_sizeTiB|add:"0" }}, {{ current_server.capacity_byType_nl_sizeTiB|add:"0" }}, {{  current_server.capacity_byType_ssd_sizeTiB|add:"0" }}]
+                var capacitydistribution_values = [{%if current_server.capacity_byType_fc_sizeTiB %}{{ current_server.capacity_byType_fc_sizeTiB|add:"0" }}{%else%}0{%endif%}, {%if current_server.capacity_byType_nl_sizeTiB %}{{ current_server.capacity_byType_nl_sizeTiB|add:"0" }}{%else%}0{%endif%}, {%if current_server.capacity_byType_ssd_sizeTiB %}{{  current_server.capacity_byType_ssd_sizeTiB|add:"0" }}{%else%}0{%endif%}]
                 $("#CapacityDistributuionPie").sparkline(capacitydistribution_values,
                     {
                         type: 'pie',
