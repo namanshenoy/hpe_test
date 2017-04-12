@@ -3,6 +3,7 @@
 {% load mathfilters %}
 {% block content_block %}
     <script src="{% static 'js/plugins/sparkline/jquery.sparkline.min.js' %}"></script>
+    <script src="{% static 'js/healthscore.js' %}"></script>
     <script>
         $(document).ready(function () {
 
@@ -59,13 +60,13 @@
                         tooltipFormat: '{{"Date: {{offset:offset}"}}}<br>Size: {{"{{y}"}}} TiB',
                         tooltipValueLookups: {
                             'offset': {
-                {% for date in all_server_records_date %}{{ forloop.counter|sub:'1' }}:
-                '{{ date }}'{% if not forloop.last%},
-                {% endif %}{% endfor %}
-            }
-            }
-            })
-                ;
+                                {% for date in all_server_records_date %}{{ forloop.counter|sub:'1' }}:
+                                '{{ date }}'{% if not forloop.last%},
+                                {% endif %}{% endfor %}
+                            }
+                        }
+                    });
+                $("#healthScore").append(createHealthscore({{current_server.healthscore}}/100, 230, 80));
             };
 
             var sparkResize;
@@ -199,7 +200,24 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-3">
+            <div class="ibox">
+                <div class="ibox-content">
+                    <h3>Health Score</h3>
+                    <small>
+                        Score: {{current_server.healthscore}}%
+                    </small>
+                    <hr>
+                    <div class="text-center">
+                        <div id="healthScore"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox">
