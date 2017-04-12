@@ -7,7 +7,7 @@ from django.db import models
 
 
 class ServerRecord(models.Model):
-    systemId = models.CharField(max_length=128, blank=False, null=False, default="0")
+    systemId = models.CharField(db_index=True, max_length=128, blank=False, null=False, default="0")
 
     #fromDate = models.CharField(max_length=128, blank=True, null=True)
     fromDate = models.DateField(blank=True, null=True)
@@ -129,6 +129,9 @@ class ServerRecord(models.Model):
     nodeCountMissing = models.CharField(max_length=128, blank=True, null=True)
     ddsSizeUsedTiBPrevious = models.CharField(max_length=128, blank=True, null=True)
 
+    class Meta:
+        ordering = ['toDate']
+
     def __str__(self):
         return self.systemId + ' ' + str(self.fromDate)
 
@@ -138,7 +141,7 @@ class ServerRecord(models.Model):
 
 class Server(models.Model):
     serialNumberInserv = models.IntegerField(default=0, primary_key=True)
-    system_companyName = models.CharField(max_length=128, blank=True, null=True)
+    system_companyName = models.CharField(db_index=True, max_length=128, blank=True, null=True)
     system_model = models.CharField(max_length=128, blank=True, null=True)
     updated = models.DateField(max_length=128, blank=True, null=True)
 
