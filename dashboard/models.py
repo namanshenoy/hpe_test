@@ -145,6 +145,8 @@ class Server(models.Model):
     system_model = models.CharField(max_length=128, blank=True, null=True)
     updated = models.DateField(max_length=128, blank=True, null=True)
 
+    healthscore = models.IntegerField(default=100)
+
     system_installDate = models.CharField(max_length=128, blank=True, null=True)
     capacity_total_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
     capacity_total_freePct = models.CharField(max_length=128, blank=True, null=True)
