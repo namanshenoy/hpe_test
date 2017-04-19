@@ -1,5 +1,15 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content_block %}
+    <script src="{% static 'js/healthscore.js' %}"></script>
+    <script>
+        $(document).ready(function () {
+            var scores = $(".healthscore");
+            for (var i = 0; i < scores.length; i++) {
+                scores[i].append(createHealthscore(scores[i].getAttribute("score")/100, 80, 20, 2, false));
+            };
+        });
+    </script>
 
     <div class="row">
 
@@ -51,7 +61,7 @@
                                     <td>{{ computer.capacity_total_dedupeRatio }}</td>
                                     <td>{{ computer.capacity_total_dedupeRatio }}</td>
                                     <td>{{ computer.capacity_total_dedupeRatio }}</td>
-                                    <td>{{ computer.healthscore }}</td>
+                                    <td><div class="healthscore" score={{  computer.healthscore  }}></div></td>
                                 </tr>
                             {% endfor %}
                             </tbody>
