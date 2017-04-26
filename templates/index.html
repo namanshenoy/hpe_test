@@ -56,7 +56,7 @@
                                     <td>{{ computer.system_installDate }}</td>
                                     <td>{{ computer.system_model }}</td>
                                     <td>{{ computer.capacity_total_sizeTiB }}</td>
-                                    <td>{{ computer.capacity_total_dedupeRatio }} %</td>
+                                    <td>{% if computer.capacity_total_dedupeRatio %}{{ computer.capacity_total_dedupeRatio }}{% else %}0{%endif%} %</td>
                                     <td><div class="healthscore" score={{  computer.healthscore  }}></div></td>
                                 </tr>
                             {% endfor %}
