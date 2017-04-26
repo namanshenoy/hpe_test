@@ -56,6 +56,6 @@ def detail(request, server_serial):
         print str(e)
         current_company = None
         current_server = None
-        return render(request, 'index.html', context)
+        return render(request, 'detail.html', context)
 
     return render(request, 'detail.html', context)
