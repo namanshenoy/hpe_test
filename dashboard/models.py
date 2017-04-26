@@ -144,9 +144,6 @@ class Server(models.Model):
     system_companyName = models.CharField(db_index=True, max_length=128, blank=True, null=True)
     system_model = models.CharField(max_length=128, blank=True, null=True)
     updated = models.DateField(max_length=128, blank=True, null=True)
-
-    healthscore = models.IntegerField(default=100)
-
     system_installDate = models.CharField(max_length=128, blank=True, null=True)
     capacity_total_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
     capacity_total_freePct = models.CharField(max_length=128, blank=True, null=True)
@@ -156,6 +153,7 @@ class Server(models.Model):
     capacity_total_dedupeRatio = models.CharField(max_length=128, blank=True, null=True)
     virtualCapacity_byType_tdvv_vvCount = models.CharField(max_length=128, blank=True, null=True)
     virtualCapacity_byType_tdvv_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
+    healthscore = models.IntegerField(default=100, null=True)
 
     class Meta:
         ordering = ['serialNumberInserv']
