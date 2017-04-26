@@ -40,17 +40,23 @@ def detail(request, server_serial):
         dedupe_size_list = []
         record_date_list = []
         for record in server_records:
+            print record
             try:
-                dds_size = float(record.ddsSizeUsedTiB)
+                dds_size = 0.0
+                print 'ddsSizeUsed ' + str(record.ddsSizeUsedTiB)
+                if record.ddsSizeUsedTiB:
+                     dds_size = float(record.ddsSizeUsedTiB)
                 record_date_list.append(record.toDate)
                 dedupe_size_list.append(dds_size)
             except ValueError:
+                print record.ddSizeUsedTiB
                 pass
 
         context['all_server_records_dedupe_size'] = dedupe_size_list
         context['all_server_records_date'] = record_date_list
 
         context['latest_server_record'] = latest_server_record
+        print latest_server_record
 
     except Exception, e:
         print str(e)

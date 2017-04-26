@@ -66,7 +66,7 @@
                             }
                         }
                     });
-                $("#healthScore").append(createHealthscore({{current_server.healthscore}}/100, 230, 80, 3, true));
+                $("#healthScore").append(createHealthscore({{current_server.healthscore}}/100, 180, 90, 3, true));
             };
 
             var sparkResize;
@@ -95,13 +95,14 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table id="server-table" class="table table-striped">
+                        <table id="server-table" class="table table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Serial Number</th>
                                 <th>Company Name</th>
                                 <th>System Model</th>
                                 <th>Total Capacity</th>
+								<th>Remaining Percentage</th>
                                 <th>Install Date</th>
                                 <th>Dedupe Ratio</th>
                                 <th>Kernel version</th>
@@ -114,7 +115,8 @@
                                 <td>{{ current_server.serialNumberInserv }}</td>
                                 <td>{{ current_server.system_companyName }}</td>
                                 <td>{{ current_server.system_model }}</td>
-                                <td>{{ current_server.capacity_total_sizeTiB }}</td>
+                                <td>{{ current_server.capacity_total_sizeTiB|floatformat:3  }}</td>
+								<td>{{ current_server.capacity_total_freePct|floatformat:3  }}</td>
                                 <td>{{ current_server.system_installDate }}</td>
                                 <td>{{ current_server.capacity_total_dedupeRatio }}</td>
                                 <td>{{ latest_server_record.tpdKernelPatch }}</td>
@@ -153,6 +155,9 @@
 						{% else %}
 						No ACK data<br /><br /><br />
 						{% endif %}
+						{% if latest_server_record.delAcks == 0.00 and  latest_server_record.totalWriteIOsHistVlun == 0.00 %}
+						No ACK data<br /><br /><br />
+						{% endif %}
                     </small>
                     <hr>
                     <div class="text-center">
@@ -185,7 +190,7 @@
                 <div class="ibox-content">
                     <h3>Storage Distribution</h3>
                     <small>
-						{% if current_server.capacity_byType_fc_sizeTiB or current_server.capacity_byType_nl_sizeTiB or current_server.capacity_byType_fc_sizeTiB %}
+						{% if current_server.capacity_byType_fc_sizeTiB or current_server.capacity_byType_nl_sizeTiB or current_server.capacity_byType_ssd_sizeTiB %}
 						SSD Size: {%if current_server.capacity_byType_ssd_sizeTiB %}{{ current_server.capacity_byType_ssd_sizeTiB|floatformat:2 }}{% else %}0{%endif%} TiB<br>
                         NL Size: {%if current_server.capacity_byType_nl_sizeTiB %}{{ current_server.capacity_byType_nl_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB<br />
 						FC Size: {%if current_server.capacity_byType_fc_sizeTiB %}{{ current_server.capacity_byType_fc_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB
@@ -212,6 +217,21 @@
                     <div class="text-center">
                         <div id="healthScore"></div>
                     </div>
+					<div id="health-score-summary">
+						Reasons for healthScore:
+						<br />
+						<ul>
+							<li>
+								Reason A
+							</li>
+							<li>
+								Reason B
+							</li>
+							<li>
+								Reason C
+							</li>
+						</ul>
+					</div>
                 </div>
             </div>
         </div>
