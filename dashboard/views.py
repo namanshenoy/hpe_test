@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 from django.core.exceptions import ObjectDoesNotExist
+from django.views.decorators.csrf import csrf_exempt
 from models import *
 
 
@@ -21,6 +22,11 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+@csrf_exempt
+def api(request):
+    if request.POST:
+        print request.POST
+    return render(request, 'index.html', {})
 
 @login_required()
 def detail(request, server_serial):

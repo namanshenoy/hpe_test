@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['nshenoy.com:8080','nshenoy.com','nshenoy.com:8000']
+ALLOWED_HOSTS = ['nshenoy.com:8080','nshenoy.com','nshenoy.com:8000','localhost']
 
 
 # Application definition
