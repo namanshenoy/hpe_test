@@ -1,0 +1,5 @@
+#server-table tbody tr:hover {
+    cursor: pointer;
+    background: #587998 !important;
+    color: white;
+}
