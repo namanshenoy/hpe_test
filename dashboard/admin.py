@@ -10,3 +10,5 @@ class CompanyAdmin(admin.ModelAdmin):
 admin.site.register(Server)
 admin.site.register(Company, CompanyAdmin)
 admin.site.register(ServerRecord)
+admin.site.register(HealthscoreFactors)
+
