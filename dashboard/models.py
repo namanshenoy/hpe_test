@@ -141,15 +141,18 @@ class ServerRecord(models.Model):
 class HealthscoreFactors(models.Model):
     systemId = models.CharField(db_index=True, max_length=128, blank=False, null=False, default="0")
     healthscore = models.IntegerField(default=100)
-    freeDiskSpace = models.IntegerField(default=0)
-    delayedAcknowledgements = models.IntegerField(default=0)
-    readBandwidth = models.IntegerField(default=0)
-    writeBandwidth = models.IntegerField(default=0)
-    avgCpuUsage = models.IntegerField(default=0)
-    maxCpuUsage = models.IntegerField(default=0)
-    nodesOffline = models.IntegerField(default=0)
-    nodesMissing = models.IntegerField(default=0)
-    dedupSize = models.IntegerField(default=0)
+    capacity_total_freePct = models.IntegerField(default=0)
+    delAcksPct = models.IntegerField(default=0)
+    portReadBandwidthMBPS = models.IntegerField(default=0)
+    portWriteBandwidthMBPS = models.IntegerField(default=0)
+    cpuLatestTotalAvgPct = models.IntegerField(default=0)
+    cpuLatestTotalMaxPct = models.IntegerField(default=0)
+    nodeCountOffline = models.IntegerField(default=0)
+    nodeCountMissing = models.IntegerField(default=0)
+    ddsSizeUsedTiB = models.IntegerField(default=0)
+
+    class Meta:
+        default_verbose_name = 'healthscore_factors'
 
 class Server(models.Model):
     serialNumberInserv = models.IntegerField(default=0, primary_key=True)
