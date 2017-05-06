@@ -138,6 +138,18 @@ class ServerRecord(models.Model):
     def __unicode__(self):
         return self.systemId + ' ' + str(self.fromDate)
 
+class HealthscoreFactors(models.Model):
+    systemId = ???
+    healthscore = models.IntegerField(default=100)
+    freeDiskSpace = models.IntegerField(default=0)
+    delayedAcknowledgements = models.IntegerField(default=0)
+    readBandwidth = models.IntegerField(default=0)
+    writeBandwidth = models.IntegerField(default=0)
+    avgCpuUsage = models.IntegerField(default=0)
+    maxCpuUsage = models.IntegerField(default=0)
+    nodesOffline = models.IntegerField(default=0)
+    nodesMissing = models.IntegerField(default=0)
+    dedupSize = models.IntegerField(default=0)
 
 class Server(models.Model):
     serialNumberInserv = models.IntegerField(default=0, primary_key=True)
@@ -153,7 +165,7 @@ class Server(models.Model):
     capacity_total_dedupeRatio = models.CharField(max_length=128, blank=True, null=True)
     virtualCapacity_byType_tdvv_vvCount = models.CharField(max_length=128, blank=True, null=True)
     virtualCapacity_byType_tdvv_sizeTiB = models.CharField(max_length=128, blank=True, null=True)
-    healthscore = models.IntegerField(default=100, null=True)
+    healthscore = models.ForeignKey(HealthscoreFactors, null=True, blank=True)
 
     class Meta:
         ordering = ['serialNumberInserv']

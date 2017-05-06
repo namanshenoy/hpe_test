@@ -67,7 +67,7 @@
                         }
                     });
                 if($("#healthScore").find("canvas").length == 0)
-                    $("#healthScore").append(createHealthscore({{current_server.healthscore}}/100, 180, 90, 3, true));
+                    $("#healthScore").append(createHealthscore({{current_server.healthscore.healthscore}}/100, 180, 90, 3, true));
             };
 
             var sparkResize;
@@ -212,7 +212,7 @@
                 <div class="ibox-content">
                     <h3>Health Score</h3>
                     <small>
-                        Score: {{current_server.healthscore}}%
+                        Score: {{current_server.healthscore.healthscore}}%
                     </small>
                     <hr>
                     <div class="text-center">
