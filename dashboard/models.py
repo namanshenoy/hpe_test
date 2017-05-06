@@ -152,7 +152,7 @@ class HealthscoreFactors(models.Model):
     ddsSizeUsedTiB = models.IntegerField(default=0)
 
     class Meta:
-        default_verbose_name = 'healthscore_factors'
+        verbose_name = 'healthscore_factors'
 
 class Server(models.Model):
     serialNumberInserv = models.IntegerField(default=0, primary_key=True)
