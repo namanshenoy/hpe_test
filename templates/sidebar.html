@@ -6,7 +6,7 @@
             <li>
                     <a href="{% url 'index' %}"><img href="{% url 'index' %}" src="{% static 'img/logo.png' %}" style="width:103%;"></a>
             </li>
-
+			
             {% for computer in computers %}
                 <li id="server-list">
                       <a href="{% url 'detail' computer.serialNumberInserv %}"><i class="fa fa-sitemap"></i> <span
