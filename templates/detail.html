@@ -18,7 +18,7 @@
                         },
                     },
                     height: '140',
-                    sliceColors: ['#1ab394', '#F5F5F5']
+                    sliceColors: ['#1ab394', '#E0BAD7']
                 });
 
                 $("#DedupeUsagePie").sparkline([{%if latest_server_record.ddsSizeUsedTiB %}{{ latest_server_record.ddsSizeUsedTiB|add:"0" }}{%else%}0{%endif%},
@@ -32,7 +32,7 @@
                         },
                     },
                     height: '140',
-                    sliceColors: ['#1ab394', '#F5F5F5']
+                    sliceColors: ['#1ab394', '#E0BAD7']
                 });
                 var capacitydistribution_values = [{%if current_server.capacity_byType_fc_sizeTiB %}{{ current_server.capacity_byType_fc_sizeTiB|add:"0" }}{%else%}0{%endif%}, {%if current_server.capacity_byType_nl_sizeTiB %}{{ current_server.capacity_byType_nl_sizeTiB|add:"0" }}{%else%}0{%endif%}, {%if current_server.capacity_byType_ssd_sizeTiB %}{{  current_server.capacity_byType_ssd_sizeTiB|add:"0" }}{%else%}0{%endif%}]
                 $("#CapacityDistributuionPie").sparkline(capacitydistribution_values,
@@ -47,7 +47,7 @@
                             },
                         },
                         height: '140',
-                        sliceColors: ['#1ab394', '#F5F5F5', '#E0BAD7']
+                        sliceColors: ['#1ab394', '#7580e3', '#E0BAD7']
                     });
                 var deduplesizeline_values = [{% for record in all_server_records_dedupe_size %}{{ record }}{% if not forloop.last and record != NULL%}, {% endif %}{% endfor %}];
                 $("#DedupeSizeLine").sparkline(deduplesizeline_values,
