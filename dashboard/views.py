@@ -45,6 +45,10 @@ def detail(request, server_serial):
         context['all_server_records'] = server_records
         dedupe_size_list = []
         record_date_list = []
+
+        computers = Server.objects.filter(company=current_company)
+        context['computers'] = computers
+
         for record in server_records:
             print record
             try:

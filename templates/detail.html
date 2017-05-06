@@ -10,6 +10,7 @@
             var sparklineCharts = function () {
                 $("#AcksPie").sparkline([{%if latest_server_record.delAcks %}{{ latest_server_record.delAcks }}{%else%}0{%endif%}, {%if latest_server_record.totalWriteIOsHistVlun %}{{ latest_server_record.totalWriteIOsHistVlun}}{%else%}0{%endif%}], {
                     type: 'pie',
+					highlightLighten: '1.1',
                     tooltipFormat: '<span style="color: {{"{{color}"}}}">&#9679;</span> {{"{{offset:offset}"}}} ({{"{{percent.1}"}}}%)',
                     tooltipValueLookups: {
                         'offset': {
@@ -18,12 +19,13 @@
                         },
                     },
                     height: '140',
-                    sliceColors: ['#1ab394', '#F5F5F5']
+                    sliceColors: ['#1ab394', '#e6a20a'],
                 });
 
                 $("#DedupeUsagePie").sparkline([{%if latest_server_record.ddsSizeUsedTiB %}{{ latest_server_record.ddsSizeUsedTiB|add:"0" }}{%else%}0{%endif%},
                     {%if latest_server_record.ddsSizeUsedTiB %}{{ current_server.capacity_total_sizeTiB|add:"0" }}{%else%}0{%endif%}], {
                     type: 'pie',
+					highlightLighten: '1.1',
                     tooltipFormat: '<span style="color: {{"{{color}"}}}">&#9679;</span> {{"{{offset:offset}"}}} ({{"{{percent.1}"}}}%)',
                     tooltipValueLookups: {
                         'offset': {
@@ -32,12 +34,13 @@
                         },
                     },
                     height: '140',
-                    sliceColors: ['#1ab394', '#F5F5F5']
+                    sliceColors: ['#1ab394', '#e6a20a']
                 });
                 var capacitydistribution_values = [{%if current_server.capacity_byType_fc_sizeTiB %}{{ current_server.capacity_byType_fc_sizeTiB|add:"0" }}{%else%}0{%endif%}, {%if current_server.capacity_byType_nl_sizeTiB %}{{ current_server.capacity_byType_nl_sizeTiB|add:"0" }}{%else%}0{%endif%}, {%if current_server.capacity_byType_ssd_sizeTiB %}{{  current_server.capacity_byType_ssd_sizeTiB|add:"0" }}{%else%}0{%endif%}]
                 $("#CapacityDistributuionPie").sparkline(capacitydistribution_values,
                     {
                         type: 'pie',
+						highlightLighten: '1.1',
                         tooltipFormat: '<span style="color: {{"{{color}"}}}">&#9679;</span> {{"{{offset:offset}"}}} ({{"{{percent.1}"}}}%)',
                         tooltipValueLookups: {
                             'offset': {
@@ -47,7 +50,7 @@
                             },
                         },
                         height: '140',
-                        sliceColors: ['#1ab394', '#F5F5F5', '#E0BAD7']
+                        sliceColors: ['#1ab394', '#7580e3', '#e6a20a']
                     });
                 var deduplesizeline_values = [{% for record in all_server_records_dedupe_size %}{{ record }}{% if not forloop.last and record != NULL%}, {% endif %}{% endfor %}];
                 $("#DedupeSizeLine").sparkline(deduplesizeline_values,
@@ -150,8 +153,14 @@
                     <h3>Latest DelAcks</h3>
                     <small>
 						{% if latest_server_record.delAcks or  latest_server_record.totalWriteIOsHistVlun %}
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#1ab394" />
+						</svg>
 						DelayedACKs: {{ latest_server_record.delAcks|floatformat:2 }}<br>
-                        Total IO: {{ latest_server_record.totalWriteIOsHistVlun|floatformat:2 }}
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#e6a20a" />
+						</svg>
+						Total IO: {{ latest_server_record.totalWriteIOsHistVlun|floatformat:2 }}
 						<br /><br />
 						{% else %}
 						No ACK data<br /><br /><br />
@@ -172,9 +181,15 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <h3>Dedupe Storage Usage</h3>
-                    <small>{% if latest_server_record.ddsSizeUsedTiB and current_server.capacity_total_sizeTiB %}Dedupe
-                        Size: {{ latest_server_record.ddsSizeUsedTiB|floatformat:2 }} TiB<br>
-                        Total Size: {{ current_server.capacity_total_sizeTiB|floatformat:2 }} TiB
+                    <small>{% if latest_server_record.ddsSizeUsedTiB and current_server.capacity_total_sizeTiB %}
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#1ab394" />
+						</svg>
+						Dedupe Size: {{ latest_server_record.ddsSizeUsedTiB|floatformat:2 }} TiB<br>
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#e6a20a" />
+						</svg>
+						Total Size: {{ current_server.capacity_total_sizeTiB|floatformat:2 }} TiB
 						<br /><br />
 						{% else %}No Dedupe store<br /><br /><br />{% endif %}
                     </small>
@@ -192,8 +207,17 @@
                     <h3>Storage Distribution</h3>
                     <small>
 						{% if current_server.capacity_byType_fc_sizeTiB or current_server.capacity_byType_nl_sizeTiB or current_server.capacity_byType_ssd_sizeTiB %}
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#e6a20a" />
+						</svg>
 						SSD Size: {%if current_server.capacity_byType_ssd_sizeTiB %}{{ current_server.capacity_byType_ssd_sizeTiB|floatformat:2 }}{% else %}0{%endif%} TiB<br>
-                        NL Size: {%if current_server.capacity_byType_nl_sizeTiB %}{{ current_server.capacity_byType_nl_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB<br />
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#7580e3" />
+						</svg>
+						NL Size: {%if current_server.capacity_byType_nl_sizeTiB %}{{ current_server.capacity_byType_nl_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB<br />
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#1ab394" />
+						</svg>
 						FC Size: {%if current_server.capacity_byType_fc_sizeTiB %}{{ current_server.capacity_byType_fc_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB
 						{% else %}
 						No data exists
