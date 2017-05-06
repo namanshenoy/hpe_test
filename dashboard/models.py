@@ -139,7 +139,7 @@ class ServerRecord(models.Model):
         return self.systemId + ' ' + str(self.fromDate)
 
 class HealthscoreFactors(models.Model):
-    systemId = ???
+    systemId = models.CharField(db_index=True, max_length=128, blank=False, null=False, default="0")
     healthscore = models.IntegerField(default=100)
     freeDiskSpace = models.IntegerField(default=0)
     delayedAcknowledgements = models.IntegerField(default=0)
