@@ -1,12 +1,12 @@
 {% load static %}
-<nav class="navbar-default navbar-static-side" role="navigation" style="overflow-y: scroll;height: 100%;">
+<nav class="navbar-default navbar-static-side" role="navigation" style="height: 100%;">
 
     <div class="sidebar-collapse">
         <ul class="nav metismenu" id="side-menu">
             <li>
                     <a href="{% url 'index' %}"><img href="{% url 'index' %}" src="{% static 'img/logo.png' %}" style="width:103%;"></a>
             </li>
-			
+
             {% for computer in computers %}
                 <li id="server-list">
                       <a href="{% url 'detail' computer.serialNumberInserv %}"><i class="fa fa-sitemap"></i> <span

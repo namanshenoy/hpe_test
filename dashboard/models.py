@@ -141,18 +141,24 @@ class ServerRecord(models.Model):
 class HealthscoreFactors(models.Model):
     systemId = models.CharField(db_index=True, max_length=128, blank=False, null=False, default="0")
     healthscore = models.IntegerField(default=100)
-    capacity_total_freePct = models.IntegerField(default=0)
-    delAcksPct = models.IntegerField(default=0)
-    portReadBandwidthMBPS = models.IntegerField(default=0)
-    portWriteBandwidthMBPS = models.IntegerField(default=0)
-    cpuLatestTotalAvgPct = models.IntegerField(default=0)
-    cpuLatestTotalMaxPct = models.IntegerField(default=0)
-    nodeCountOffline = models.IntegerField(default=0)
-    nodeCountMissing = models.IntegerField(default=0)
-    ddsSizeUsedTiB = models.IntegerField(default=0)
+    capacity_total_freePct = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
+    delAcksPct = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
+    portReadBandwidthMBPS = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
+    portWriteBandwidthMBPS = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
+    cpuLatestTotalAvgPct = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
+    cpuLatestTotalMaxPct = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
+    nodeCountOffline = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
+    nodeCountMissing = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
+    ddsSizeUsedTiB = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
 
     class Meta:
-        verbose_name = 'healthscore_factors'
+        ordering = ['systemId']
+
+    def __str__(self):
+        return self.systemId + ' ' + str(self.healthscore)
+
+    def __unicode__(self):
+        return self.systemId + ' ' + str(self.healthScore)
 
 class Server(models.Model):
     serialNumberInserv = models.IntegerField(default=0, primary_key=True)
