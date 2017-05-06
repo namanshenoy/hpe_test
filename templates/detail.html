@@ -150,8 +150,14 @@
                     <h3>Latest DelAcks</h3>
                     <small>
 						{% if latest_server_record.delAcks or  latest_server_record.totalWriteIOsHistVlun %}
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#1ab394" />
+						</svg>
 						DelayedACKs: {{ latest_server_record.delAcks|floatformat:2 }}<br>
-                        Total IO: {{ latest_server_record.totalWriteIOsHistVlun|floatformat:2 }}
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#E0BAD7" />
+						</svg>
+						Total IO: {{ latest_server_record.totalWriteIOsHistVlun|floatformat:2 }}
 						<br /><br />
 						{% else %}
 						No ACK data<br /><br /><br />
@@ -172,9 +178,15 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <h3>Dedupe Storage Usage</h3>
-                    <small>{% if latest_server_record.ddsSizeUsedTiB and current_server.capacity_total_sizeTiB %}Dedupe
-                        Size: {{ latest_server_record.ddsSizeUsedTiB|floatformat:2 }} TiB<br>
-                        Total Size: {{ current_server.capacity_total_sizeTiB|floatformat:2 }} TiB
+                    <small>{% if latest_server_record.ddsSizeUsedTiB and current_server.capacity_total_sizeTiB %}
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#1ab394" />
+						</svg>
+						Dedupe Size: {{ latest_server_record.ddsSizeUsedTiB|floatformat:2 }} TiB<br>
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#E0BAD7" />
+						</svg>
+						Total Size: {{ current_server.capacity_total_sizeTiB|floatformat:2 }} TiB
 						<br /><br />
 						{% else %}No Dedupe store<br /><br /><br />{% endif %}
                     </small>
@@ -192,8 +204,17 @@
                     <h3>Storage Distribution</h3>
                     <small>
 						{% if current_server.capacity_byType_fc_sizeTiB or current_server.capacity_byType_nl_sizeTiB or current_server.capacity_byType_ssd_sizeTiB %}
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#E0BAD7" />
+						</svg>
 						SSD Size: {%if current_server.capacity_byType_ssd_sizeTiB %}{{ current_server.capacity_byType_ssd_sizeTiB|floatformat:2 }}{% else %}0{%endif%} TiB<br>
-                        NL Size: {%if current_server.capacity_byType_nl_sizeTiB %}{{ current_server.capacity_byType_nl_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB<br />
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#7580e3" />
+						</svg>
+						NL Size: {%if current_server.capacity_byType_nl_sizeTiB %}{{ current_server.capacity_byType_nl_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB<br />
+						<svg width="10" height="10">
+						  <rect width="10" height="10" style="fill:#1ab394" />
+						</svg>
 						FC Size: {%if current_server.capacity_byType_fc_sizeTiB %}{{ current_server.capacity_byType_fc_sizeTiB|floatformat:2	 }}{% else %}0{%endif%} TiB
 						{% else %}
 						No data exists
