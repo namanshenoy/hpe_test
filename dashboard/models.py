@@ -140,16 +140,16 @@ class ServerRecord(models.Model):
 
 class HealthscoreFactors(models.Model):
     systemId = models.CharField(db_index=True, max_length=128, blank=False, null=False, default="0")
-    healthscore = models.IntegerField(default=100)
-    capacity_total_freePct = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
-    delAcksPct = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
-    portReadBandwidthMBPS = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
-    portWriteBandwidthMBPS = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
-    cpuLatestTotalAvgPct = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
-    cpuLatestTotalMaxPct = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
-    nodeCountOffline = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
-    nodeCountMissing = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
-    ddsSizeUsedTiB = models.DecimalField(default=0.0, max_digits=10, decimal_places=3)
+    healthscore = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
+    capacity_total_freePct = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
+    delAcksPct = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
+    portReadBandwidthMBPS = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
+    portWriteBandwidthMBPS = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
+    cpuLatestTotalAvgPct = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
+    cpuLatestTotalMaxPct = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
+    nodeCountOffline = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
+    nodeCountMissing = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
+    ddsSizeUsedTiB = models.DecimalField(default=0.0, max_digits=10, decimal_places=1)
 
     class Meta:
         ordering = ['systemId']

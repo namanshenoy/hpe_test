@@ -84,6 +84,7 @@
 
 
         });
+
     </script>
     <div class="row">
         <div class="col-lg-12">
@@ -230,6 +231,76 @@
                 </div>
             </div>
         </div>
+        <!-- HTML NEEDED FOR THE IMPORTANT MESSAGE MODAL POPUP -->
+
+    <div class="modal fade " id="healthscore-modal" tabindex="-1" role="dialog" aria-labelledby="important-msg-label" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="important-msg-label">Healthscore Factors</h4>
+          </div>
+          <div class="modal-body">
+            <table id="healthfactors-table" class="table table-bordered table-striped">
+                <p>
+                    The server health score is calculated based on nine datapoints. Below you can see how each one is affecting your server's score. 
+                </p>
+                <thead>
+                    <th title="Health score factor">Factor</th>
+                    <th title="Percentage">Percentage</th>
+                </thread>
+                <tbody>
+                    <tr>
+                        <td>Free space</td>
+                        <td>{{current_server.healthscore.capacity_total_freePct}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Delayed acknowledgements</td>
+                        <td>{{current_server.healthscore.delAcksPct}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Read bandwidth</td>
+                        <td>{{current_server.healthscore.portReadBandwidthMBPS}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Write bandwidth</td>
+                        <td>{{current_server.healthscore.portWriteBandwidthMBPS}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Average CPU usage</td>
+                        <td>{{current_server.healthscore.cpuLatestTotalAvgPct}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Max CPU usage</td>
+                        <td>{{current_server.healthscore.cpuLatestTotalMaxPct}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Offline nodes</td>
+                        <td>{{current_server.healthscore.nodeCountOffline}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Missing nodes</td>
+                        <td>{{current_server.healthscore.nodeCountMissing}}%</td>
+                    </tr>
+                    <tr>
+                        <td>DDS size used</td>
+                        <td>{{current_server.healthscore.ddsSizeUsedTiB}}%</td>
+                    </tr>
+                    <tr>
+                        <td>Overall score</td>
+                        <td>{{current_server.healthscore.healthscore}}%</td>
+                    </tr>
+                </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- END HTML NEEDED FOR THE IMPORTANT MESSAGE MODAL POPUP -->
 
         <div class="col-lg-3">
             <div class="ibox">
@@ -243,19 +314,7 @@
                         <div id="healthScore"></div>
                     </div>
 					<div id="health-score-summary">
-						Reasons for healthScore:
-						<br />
-						<ul>
-							<li>
-								Reason A
-							</li>
-							<li>
-								Reason B
-							</li>
-							<li>
-								Reason C
-							</li>
-						</ul>
+						<button type='button' class="btn btn-default" data-toggle="modal" data-target="#healthscore-modal">show healthscore factors</button>
 					</div>
                 </div>
             </div>
