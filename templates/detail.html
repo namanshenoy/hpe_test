@@ -84,6 +84,22 @@
 
 
         });
+    function showHealthModal() {
+
+        var text = "";
+        text+= "Score: "+{{current_server.healthscore.healthscore}}+"%\n";
+        text+= "Free space: "+{{current_server.healthscore.capacity_total_freePct}}+"%\n";
+        text+= "Delayed acknowledgements: "+{{current_server.healthscore.delAcksPct}}+"%\n";
+        text+= "Read bandwidth: "+{{current_server.healthscore.portReadBandwidthMBPS}}+"%\n";
+        text+= "Write bandwidth: "+{{current_server.healthscore.portWriteBandwidthMBPS}}+"%\n";
+        text+= "Average CPU usage: "+{{current_server.healthscore.cpuLatestTotalAvgPct}}+"%\n";
+        text+= "Max CPU usage: "+{{current_server.healthscore.cpuLatestTotalMaxPct}}+"%\n";
+        text+= "Offline nodes: "+{{current_server.healthscore.nodeCountOffline}}+"%\n";
+        text+= "Missing nodes: "+{{current_server.healthscore.nodeCountMissing}}+"%\n";
+        text+= "Space used: "+{{current_server.healthscore.ddsSizeUsedTiB}}+"%\n";
+        window.alert(text);
+    }
+
     </script>
     <div class="row">
         <div class="col-lg-12">
@@ -243,19 +259,7 @@
                         <div id="healthScore"></div>
                     </div>
 					<div id="health-score-summary">
-						Reasons for healthScore:
-						<br />
-						<ul>
-							<li>
-								Reason A
-							</li>
-							<li>
-								Reason B
-							</li>
-							<li>
-								Reason C
-							</li>
-						</ul>
+						<button onclick='showHealthModal()'>show healthscore factors</button>
 					</div>
                 </div>
             </div>
