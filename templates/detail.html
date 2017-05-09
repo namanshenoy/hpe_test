@@ -104,7 +104,6 @@
                             <thead>
                             <tr>
                                 <th title="Serial Number of the server">Serial Number</th>
-                                <th title="Company that runs the server">Company Name</th>
                                 <th title="Server model">System Model</th>
                                 <th title="Total capacity across all media types">Total Capacity</th>
 								<th title="Percent remaining capactiy of all media types ">Remaining Percentage</th>
@@ -112,8 +111,8 @@
                                 <th title="Ratio of actual data to de-duplicated data">Dedupe Ratio</th>
                                 <th title="Current Kernel version of system">Kernel version</th>
                                 <th title="Number of virtual volumes contained in the server">Virtual Volumes</th>
-								<th title="Read bandwidth">Read Bandwidth</th>
-								<th title="Write bandwidth">Write Bandwidth</th>
+								<th title="Read bandwidth in MBPS">Read Bandwidth (MBPS)</th>
+								<th title="Write bandwidth in MBPS">Write Bandwidth (MBPS)</th>
 
                             </tr>
                             </thead>
@@ -124,14 +123,13 @@
                                 <td>{{ current_server.system_companyName }}</td>
                                 <td>{{ current_server.system_model }}</td>
                                 <td>{{ current_server.capacity_total_sizeTiB|floatformat:3  }}</td>
-								<td>{{ current_server.capacity_total_freePct|floatformat:3  }}</td>
+								<td>{{ current_server.capacity_total_freePct|floatformat:3  }}  %</td>
                                 <td>{{ current_server.system_installDate }}</td>
                                 <td>{% if current_server.capacity_total_dedupeRatio %}{{ current_server.capacity_total_dedupeRatio }}{% else %}0{%endif%} %</td>
                                 <td>{{ latest_server_record.tpdKernelPatch }}</td>
                                 <td>{{ latest_server_record.vvCountHistVlun }}</td>
-								<td>{{ latest_server_record.portReadBandwidthMBPS }}</td>
-								<td>{{ latest_server_record.portWriteBandwidthMBPS }}</td>
-
+								<td>{{ latest_server_record.portReadBandwidthMBPS|floatformat:3 }}</td>
+								<td>{{ latest_server_record.portWriteBandwidthMBPS|floatformat:3 }}</td>
                             </tr>
                             </tbody>
                         </table>
