@@ -112,6 +112,9 @@
                                 <th title="Ratio of actual data to de-duplicated data">Dedupe Ratio</th>
                                 <th title="Current Kernel version of system">Kernel version</th>
                                 <th title="Number of virtual volumes contained in the server">Virtual Volumes</th>
+								<th title="Read bandwidth">Read Bandwidth</th>
+								<th title="Write bandwidth">Write Bandwidth</th>
+
                             </tr>
                             </thead>
 
@@ -126,6 +129,9 @@
                                 <td>{% if current_server.capacity_total_dedupeRatio %}{{ current_server.capacity_total_dedupeRatio }}{% else %}0{%endif%} %</td>
                                 <td>{{ latest_server_record.tpdKernelPatch }}</td>
                                 <td>{{ latest_server_record.vvCountHistVlun }}</td>
+								<td>{{ latest_server_record.portReadBandwidthMBPS }}</td>
+								<td>{{ latest_server_record.portWriteBandwidthMBPS }}</td>
+
                             </tr>
                             </tbody>
                         </table>
