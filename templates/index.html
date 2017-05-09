@@ -57,7 +57,7 @@
                                     <td>{{ computer.system_model }}</td>
                                     <td>{{ computer.capacity_total_sizeTiB }}</td>
                                     <td>{% if computer.capacity_total_dedupeRatio %}{{ computer.capacity_total_dedupeRatio }}{% else %}0{%endif%} %</td>
-                                    <td><div class="healthscore" score={{  computer.healthscore.healthscore  }}></div></td>
+                                    <td><div class="healthscore" score={{  healthscore[computer.serialNumberInserv]  }}></div></td>
                                 </tr>
                             {% endfor %}
                             </tbody>
