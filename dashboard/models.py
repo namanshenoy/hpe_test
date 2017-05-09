@@ -158,7 +158,7 @@ class HealthscoreFactors(models.Model):
         return self.systemId + ' ' + str(self.healthscore)
 
     def __unicode__(self):
-        return self.systemId + ' ' + str(self.healthScore)
+        return self.systemId + ' ' + str(self.healthscore)
 
 class Server(models.Model):
     serialNumberInserv = models.IntegerField(default=0, primary_key=True)

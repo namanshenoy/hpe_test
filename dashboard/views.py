@@ -36,8 +36,13 @@ def detail(request, server_serial):
         current_company = Company.objects.filter(user=current_user).last()
         company_servers = current_company.servers
         context['company_name'] = str(current_company)
+        print 'Current_company = ' + str(current_company)
         current_server = current_company.servers.filter(serialNumberInserv=server_serial).first()
+        current_healthscore = HealthscoreFactors.objects.get(systemId=server_serial)
+        context['current_healthscore'] = current_healthscore
 
+        print 'Current Server = '+server_serial
+        print 'Current healthscore = ' + str(current_healthscore.healthscore)
         context['current_server'] = current_server
         server_records = ServerRecord.objects.filter(systemId=server_serial)
         latest_server_record = server_records.last()
@@ -50,10 +55,8 @@ def detail(request, server_serial):
         context['computers'] = computers
 
         for record in server_records:
-            print record
             try:
                 dds_size = 0.0
-                print 'ddsSizeUsed ' + str(record.ddsSizeUsedTiB)
                 if record.ddsSizeUsedTiB:
                      dds_size = float(record.ddsSizeUsedTiB)
                 record_date_list.append(record.toDate)

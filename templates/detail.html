@@ -70,7 +70,7 @@
                         }
                     });
                 if($("#healthScore").find("canvas").length == 0)
-                    $("#healthScore").append(createHealthscore({{current_server.healthscore.healthscore}}/100, 180, 90, 3, true));
+                    $("#healthScore").append(createHealthscore({{ current_healthscore.healthscore }}/100, 180, 100, 3, true));
             };
 
             var sparkResize;
@@ -90,7 +90,7 @@
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h3>{{ company_name }} / Server Details: {{ current_server }}</h3>
+                    <h3> {{ current_healthscore.healthscore }} {{ company_name }} / Server Details: {{ current_server }}</h3>
                 </div>
                 <div class="ibox-content">
                     <div class="row">
@@ -243,55 +243,76 @@
           <div class="modal-body">
             <table id="healthfactors-table" class="table table-bordered table-striped">
                 <p>
-                    The server health score is calculated based on nine datapoints. Below you can see how each one is affecting your server's score. 
+                    The server health score is calculated based on nine datapoints compared to all servers of this server model.
+				</p>
+				<p>
+					Below you can see how each one is affecting your server's score.
                 </p>
                 <thead>
                     <th title="Health score factor">Factor</th>
-                    <th title="Percentage">Percentage</th>
+                    <th title="Percentage">Percentage Reduced</th>
                 </thread>
                 <tbody>
-                    <tr>
+                    <tr {% if current_healthscore.capacity_total_freePct > 10 %}
+						style="background-color:rgba(255,0,0,0.5);color:white;"
+						{% endif %}>
                         <td>Free space</td>
-                        <td>{{current_server.healthscore.capacity_total_freePct}}%</td>
+                        <td>{{current_healthscore.capacity_total_freePct}}%</td>
                     </tr>
-                    <tr>
+					<tr {% if current_healthscore.delAcksPct > 10 %}
+						style="background-color:rgba(255,0,0,0.5);color:white;"
+						{% endif %}>
                         <td>Delayed acknowledgements</td>
-                        <td>{{current_server.healthscore.delAcksPct}}%</td>
+                        <td>{{current_healthscore.delAcksPct}}%</td>
                     </tr>
-                    <tr>
+					<tr {% if current_healthscore.portReadBandwidthMBPS > 10 %}
+						style="background-color:rgba(255,0,0,0.5);color:white;"
+						{% endif %}>
                         <td>Read bandwidth</td>
-                        <td>{{current_server.healthscore.portReadBandwidthMBPS}}%</td>
+                        <td>{{current_healthscore.portReadBandwidthMBPS}}%</td>
                     </tr>
-                    <tr>
+					<tr {% if current_healthscore.portWriteBandwidthMBPS > 10 %}
+						style="background-color:rgba(255,0,0,0.5);color:white;"
+						{% endif %}>
                         <td>Write bandwidth</td>
-                        <td>{{current_server.healthscore.portWriteBandwidthMBPS}}%</td>
+                        <td>{{current_healthscore.portWriteBandwidthMBPS}}%</td>
                     </tr>
-                    <tr>
+					<tr {% if current_healthscore.cpuLatestTotalAvgPct > 10 %}
+						style="background-color:rgba(255,0,0,0.5);color:white;"
+						{% endif %}>
                         <td>Average CPU usage</td>
-                        <td>{{current_server.healthscore.cpuLatestTotalAvgPct}}%</td>
+                        <td>{{current_healthscore.cpuLatestTotalAvgPct}}%</td>
                     </tr>
-                    <tr>
+					<tr {% if current_healthscore.cpuLatestTotalMaxPct > 10 %}
+						style="background-color:rgba(255,0,0,0.5);color:white;"
+						{% endif %}>
                         <td>Max CPU usage</td>
-                        <td>{{current_server.healthscore.cpuLatestTotalMaxPct}}%</td>
+                        <td>{{current_healthscore.cpuLatestTotalMaxPct}}%</td>
                     </tr>
-                    <tr>
+					<tr {% if current_healthscore.nodeCountOffline > 10 %}
+						style="background-color:rgba(255,0,0,0.5);color:white;"
+						{% endif %}>
                         <td>Offline nodes</td>
-                        <td>{{current_server.healthscore.nodeCountOffline}}%</td>
+                        <td>{{current_healthscore.nodeCountOffline}}%</td>
                     </tr>
-                    <tr>
+					<tr {% if current_healthscore.nodeCountMissing > 10 %}
+						style="background-color:rgba(255,0,0,0.5);color:white;"
+						{% endif %}>
                         <td>Missing nodes</td>
-                        <td>{{current_server.healthscore.nodeCountMissing}}%</td>
+                        <td>{{current_healthscore.nodeCountMissing}}%</td>
                     </tr>
-                    <tr>
+					<tr {% if current_healthscore.ddsSizeUsedTiB > 10 %}
+						style="background-color:rgba(255,0,0,0.5);color:white;"
+						{% endif %}>
                         <td>DDS size used</td>
-                        <td>{{current_server.healthscore.ddsSizeUsedTiB}}%</td>
-                    </tr>
-                    <tr>
-                        <td>Overall score</td>
-                        <td>{{current_server.healthscore.healthscore}}%</td>
+                        <td>{{current_healthscore.ddsSizeUsedTiB}}%</td>
                     </tr>
                 </tbody>
             </table>
+			<div class="well" style="text-align:center">
+					<strong>Overall score:</strong>
+					{{current_healthscore.healthscore}}%
+			</div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -307,12 +328,14 @@
                 <div class="ibox-content">
                     <h3>Health Score</h3>
                     <small>
-                        Score: {{current_server.healthscore.healthscore}}%
+                        Score: {{current_healthscore.healthscore}}%
                     </small>
                     <hr>
                     <div class="text-center">
                         <div id="healthScore"></div>
                     </div>
+					<br />
+					<br />
 					<div id="health-score-summary">
 						<button type='button' class="btn btn-default" data-toggle="modal" data-target="#healthscore-modal">show healthscore factors</button>
 					</div>
@@ -327,6 +350,7 @@
             <div class="ibox">
                 <div class="ibox-content">
                     <h5>Dedupe Size over Time</h5>
+					<small>Hover over timeline to see more data</small>
                     <hr>
                     <div id="DedupeSizeLine"></div>
                 </div>
