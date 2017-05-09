@@ -78,7 +78,6 @@ jQuery(document).ready(function($) {
         <div class="footer">
             <div class="pull-right">
                 <strong><a href="{% url 'index' %}">Home</a></strong>&nbsp;
-                <strong><a href="{% url 'index' %}">CMDB</a></strong>
                 {% if user.is_authenticated %}<strong><a href="{% url 'auth_logout' %}?next=/">Logout</a></strong>{% endif %}
 
             </div>
